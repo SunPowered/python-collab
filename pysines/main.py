@@ -48,7 +48,7 @@ def run(options):
     filename = options.file
     
     time = np.linspace(0, 6 * np.pi)
-    data = np.empty([num,len(time)])    
+    data = np.zeros([num,len(time)])    
     
     for x in range(num):
         data[x,:] = (x+1)*np.sin(time+x)
@@ -60,7 +60,7 @@ def run(options):
     if filename:
         plt.savefig(os.path.join(os.getcwd(), filename))
 
-    pass
+    plt.show()
 
 if __name__ == '__main__':
     # Script has been launched
