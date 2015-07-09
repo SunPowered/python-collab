@@ -4,6 +4,10 @@
 import sys
 import argparse
 
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+
 def check_options(options):
     """
     Check that the options are sane and restricted to the project specs
@@ -37,9 +41,24 @@ def run(options):
 
     # Do some additional check on the options
     check_options(options)
+   
+    num = options.num
+    filename = options.file
+    
+    time = np.linspace(0, 6 * np.pi)
+    data = np.empty([num,len(time)])    
+    
+    for x in range(num):
+        data[x,:] = (x+1)*np.sin(time+x)
+        plt.plot(time, data[x])
+    
+    plt.xlabel('Time')
+    plt.ylabel('Data')
+
+    if filename:
+        plt.savefig(os.path.join(os.getcwd(), filename))
 
     pass
-
 
 if __name__ == '__main__':
     # Script has been launched
