@@ -4,5 +4,5 @@
 # IDE Files
 .sublime-project
 .idea
-.spyder-project
-.spyder-workspace
+.spyderproject
+.spyderworkspace
