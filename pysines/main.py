@@ -14,6 +14,8 @@ def check_options(options):
     :param options: An `argparse.Namespace` object
     :return:
     """
+    if options.filename and os.path.exists(options.filename):
+        print "The file {} already exists, overwriting...".format(options.filename)
 
 def create_parser():
     """
@@ -21,18 +23,9 @@ def create_parser():
     :return:  An `argparse.ArgumentParser` instance
     """
     parser = argparse.ArgumentParser('pysines', description="")
-    parser.add_argument('-f', '--file', help="A file to save")
-    
+    parser.add_argument('-n', '--num', type=int, default=1, help="(Optional) The number of sines to plot.  Must be an integer")
+    parser.add_argument('-f', '--file', dest='filename', help="(Optional) A file to save the figure")
     return parser
-
-def parse_args(args):
-    """
-    Perform the actual argument parsing, useful for testing the parser
-    :param args: The list of arguments to parse, something like `sys.argv`
-    :return: An `argparse.Namespace` object
-    """
-    parser = create_parser()
-    return parser.parse_args(args)
 
 def run(options):
     """
@@ -45,9 +38,10 @@ def run(options):
     check_options(options)
    
     num = options.num
-    filename = options.file
+    filename = options.filename
     
-    time = np.linspace(0, 6 * np.pi)
+    time = np.linspace(0, 6 * np.pi, 500)
+
     data = np.zeros([num,len(time)])    
     
     for x in range(num):
@@ -56,7 +50,7 @@ def run(options):
     
     plt.xlabel('Time')
     plt.ylabel('Data')
-
+    plt.title('PySines')
     if filename:
         plt.savefig(os.path.join(os.getcwd(), filename))
 
